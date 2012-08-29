@@ -1,0 +1,59 @@
+/*
+ * Copyright (c) 2011, Code Aurora Forum. All rights reserved.
+ * Copyright (C) 2008 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef ANDROID_BMA222_SENSOR_H
+#define ANDROID_BMA222_SENSOR_H
+
+#include <stdint.h>
+#include <errno.h>
+#include <sys/cdefs.h>
+#include <sys/types.h>
+
+#include "nusensors.h"
+#include "SensorBase.h"
+#include "InputEventReader.h"
+
+/*****************************************************************************/
+
+struct input_event;
+
+class BMA222Sensor : public SensorBase {
+    int mEnabled;
+    InputEventCircularReader mInputReader;
+    sensors_event_t mPendingEvent;
+    bool mHasPendingEvent;
+    char input_sysfs_path[PATH_MAX];
+    int input_sysfs_path_len;
+    int64_t mEnabledTime;
+
+    char class_path[256];
+    int sensor_get_class_path();
+    int set_sysfs_input_attr(char *class_path,
+                             const char *attr, char *value, int len);
+public:
+            BMA222Sensor();
+    virtual ~BMA222Sensor();
+    virtual int readEvents(sensors_event_t* data, int count);
+    virtual bool hasPendingEvents() const;
+    virtual int setDelay(int32_t handle, int64_t ns);
+    virtual int enable(int32_t handle, int enabled);
+	virtual bool isEnabled(int32_t handle);		//rockie
+};
+
+/*****************************************************************************/
+
+#endif  // ANDROID_BMA222_SENSOR_H
