@@ -75,7 +75,6 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 
 #define LSG                         (700.0f)
 
-
 // conversion of acceleration data to SI units (m/s^2)
 #define CONVERT_A                   (GRAVITY_EARTH / LSG)
 #define CONVERT_A_X                 (CONVERT_A)

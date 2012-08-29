@@ -46,6 +46,7 @@ PRODUCT_PACKAGES += \
     dexpreopt \
     e2fsck \
     brcm_patchram_plus \
+    sensors.cooper \
     copybit.cooper \
     lights.cooper \
     gralloc.cooper \
@@ -93,8 +94,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/cooper/prebuilt/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
     device/samsung/cooper/prebuilt/hostapd:system/bin/hostapd \
     device/samsung/cooper/prebuilt/hostapd.conf:system/etc/wifi/hostapd.conf
-    
-
 
 # Install the features available on this device.
 PRODUCT_COPY_FILES += \
@@ -140,7 +139,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES := \
     keyguard.no_require_sim=true \
     ro.com.android.dateformat=dd-MM-yyyy \
-    ro.ril.hsxpa=1 \
+    ro.ril.hsxpa=3 \
     ro.ril.gprsclass=10 \
     ro.media.dec.jpeg.memcap=10000000
 
@@ -172,7 +171,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.execution-mode=int:jit \
     dalvik.vm.dexopt-data-only=1 \
     ro.opengles.version=131072  \
-    ro.compcache.default=0
+    ro.compcache.default=0 \
+    debug.composition.type=gpu \
+    persist.sys.composition.type=gpu \
+    persist.sys.ui.hw=true dalvik.vm.lockprof.threshold=500 \
+    dalvik.vm.dexopt-flags=m=y \
+    dalvik.vm.heapsize=32m \
+    dalvik.vm.execution-mode=int:jit \
+    dalvik.vm.dexopt-data-only=1 \
+    ro.config.hw_menu_unlockscreen=false \
+    ro.service.swiqi.supported=true \
+    debug.sf.hw=1 \
+    persist.sys.themeId=ICStransV3 \
+    UOT persist.sys.themePackageName=com.uotkitchen.theme.icstransv3
 
 # See comment at the top of this file. This is where the other
 # half of the device-specific product definition file takes care

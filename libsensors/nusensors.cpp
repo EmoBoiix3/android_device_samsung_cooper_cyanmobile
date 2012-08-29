@@ -30,7 +30,7 @@
 
 #include "nusensors.h"
 #include "BMA222Sensor.h"
-#include "TMD27711Sensor.h"
+//#include "TMD27711Sensor.h"
 
 /*****************************************************************************/
 

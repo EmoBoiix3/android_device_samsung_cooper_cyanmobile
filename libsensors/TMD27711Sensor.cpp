@@ -29,7 +29,7 @@
 
 /*****************************************************************************/
 
-TmdSensor::TmdSensor(): SensorBase("/dev/tmd27711", "tmd27711"),
+TMD27711Sensor::TMD27711Sensor(): SensorBase("/dev/tmd27711", "tmd27711"),
 	mAlsEnabled(0),
 	mProxEnabled(0),
 	mInputReader(32),
@@ -43,11 +43,11 @@ TmdSensor::TmdSensor(): SensorBase("/dev/tmd27711", "tmd27711"),
 	}
 }
 
-TmdSensor::~TmdSensor(){
+TMD27711Sensor::~TMD27711Sensor(){
 	ioctl(dev_fd, TAOS_IOCTL_SENSOR_OFF, 0);
 }
 
-int TmdSensor::setInitialState() {
+int TMD27711Sensor::setInitialState() {
 	struct input_absinfo absinfo;
     if (!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_PROXIMITY), &absinfo)) {
         // make sure to report an event immediately
@@ -57,7 +57,7 @@ int TmdSensor::setInitialState() {
 	return 0;
 }
 
-int TmdSensor::setEnable(int32_t handle, int enabled) {
+int TMD27711Sensor::setEnable(int32_t handle, int enabled) {
 	int flags = enabled ? 1 : 0;
 	int err = 0;
 
@@ -80,11 +80,11 @@ int TmdSensor::setEnable(int32_t handle, int enabled) {
 	return err;
 }
 
-bool TmdSensor::hasPendingEvents() const {
+bool TMD27711Sensor::hasPendingEvents() const {
 	return mHasPendingEvent;
 }
 
-int TmdSensor::readEvents(sensors_event_t* data, int count)
+int TMD27711Sensor::readEvents(sensors_event_t* data, int count)
 {
 	if (count < 1)
 		return -EINVAL;
@@ -116,7 +116,7 @@ int TmdSensor::readEvents(sensors_event_t* data, int count)
 	return numEventReceived;
 }
 
-void TmdSensor::processEvent(int code, int value)
+void TMD27711Sensor::processEvent(int code, int value)
 {
 	switch (code) {
 		case ABS_DISTANCE:
@@ -138,12 +138,12 @@ void TmdSensor::processEvent(int code, int value)
 		}
 
 }
-int TmdSensor::getFd() const
+int TMD27711Sensor::getFd() const
 {
 	return data_fd;
 }
 
-int TmdSensor::getEnable(int32_t handle) {
+int TMD27711Sensor::getEnable(int32_t handle) {
 	int en = 0;
 	if(handle == ID_L)
 		en = mAlsEnabled;
@@ -151,11 +151,15 @@ int TmdSensor::getEnable(int32_t handle) {
 		en = mProxEnabled;
 	return en;
 }
-int TmdSensor::setDelay(int32_t handle, int64_t ns) {
+int TMD27711Sensor::setDelay(int32_t handle, int64_t ns) {
 	return 0;
 };
 
-float TmdSensor::indexToValue(size_t index) const
+float TMD27711Sensor::indexToValue(size_t index) const
 {
-    return index * PROXIMITY_THRESHOLD_GP2A;
+    return index * 0;
+}
+int SensorBase::enable(int, int)
+{
+    return 0;
 }

@@ -15,7 +15,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(TARGET_SIMULATOR),true)
+#ifneq ($(TARGET_SIMULATOR),true)
 
 # HAL module implemenation, not prelinked, and stored in
 # hw/<SENSORS_HARDWARE_MODULE_ID>.<ro.product.board>.so
@@ -34,11 +34,11 @@ LOCAL_SRC_FILES := 						\
 				InputEventReader.cpp		\
 				SensorBase.cpp			\
 				BMA222Sensor.cpp		\
-				TMD27711Sensor.cpp
+				TMD27711Sensor.cpp		
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
 
-endif # !TARGET_SIMULATOR
+#endif # !TARGET_SIMULATOR

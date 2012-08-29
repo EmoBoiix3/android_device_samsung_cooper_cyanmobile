@@ -1,3 +1,6 @@
+#ifndef ANDROID_TMD27711_SENSOR_H
+#define ANDROID_TMD27711_SENSOR_H
+
 #include <stdint.h>
 #include <errno.h>
 #include <sys/cdefs.h>
@@ -11,10 +14,10 @@
 
 struct input_event;
 
-class TmdSensor : public SensorBase {
+class TMD27711Sensor : public SensorBase {
 public:
-	TmdSensor();
-	virtual ~TmdSensor();
+	TMD27711Sensor();
+	virtual ~TMD27711Sensor();
 
 	virtual int setEnable(int32_t handle, int enabled);
 	virtual int readEvents(sensors_event_t* data, int count);
@@ -34,3 +37,4 @@ private:
 	sensors_event_t mPendingEvent;
 };
 /*****************************************************************************/
+#endif //ANDROID_TMD27711_SENSOR_H
